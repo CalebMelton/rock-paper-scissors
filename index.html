@@ -6,7 +6,23 @@
 </head>
 <body>
     <script>
-        
+        // Gets a random choice between rock, paper, and scissors representing
+        // a play by the computer opponent.
+        function getComputerChoice() {
+            // MAKE A RANDOM CHOICE FOR THE COMPUTER'S PLAY.
+            // Each option will have equal likelihood of being chosen
+            // for simplicity and to emulate a human player's behavior.
+            const OPTION_COUNT = 3;
+            let computerChoiceIndex = Math.floor(Math.random() * OPTION_COUNT);  
+            switch(computerChoiceIndex) {
+                case 0:
+                    return "Rock";
+                case 1:
+                    return "Paper";
+                case 2:
+                    return "Scissors"
+            } 
+        }
     </script>
 </body>
 </html>
