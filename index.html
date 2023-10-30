@@ -50,13 +50,13 @@
                 playerWon = (computerSelectionInLowerCase === SCISSORS_NAME_IN_LOWER_CASE) 
                     ? true : false
             }
-            else if (playerSelectionInLowerCase === PAPER_NAME_IN_LOWER_CASE)
+            else if(playerSelectionInLowerCase === PAPER_NAME_IN_LOWER_CASE)
             {
                 // NOTE WHETHER THE PLAYER WON OR LOST.                
                 playerWon = (computerSelectionInLowerCase === ROCK_NAME_IN_LOWER_CASE) 
                     ? true : false
             }
-            else if (playerSelectionInLowerCase === SCISSORS_NAME_IN_LOWER_CASE)
+            else if(playerSelectionInLowerCase === SCISSORS_NAME_IN_LOWER_CASE)
             {
                 // NOTE WHETHER THE PLAYER WON OR LOST.
                 playerWon = (computerSelectionInLowerCase === PAPER_NAME_IN_LOWER_CASE) 
@@ -64,13 +64,13 @@
             }
 
             // DECLARE THE RESULT OF THE ROUND.
-            if (playerWon === null)
+            if(playerWon === null)
             {
                 // DECLARE A TIE.
                 const tieMessage = `It's a tie! Both players chose ${computerSelection}.`;
                 console.log(tieMessage);
             }
-            else if (playerWon)
+            else if(playerWon)
             {
                 // DECLARE THE PLAYER WON.
                 const playerWinMessage = `You win! ${playerSelection} beats ${computerSelection}.`
@@ -86,6 +86,74 @@
             // RETURN THE RESULT OF THE ROUND.
             return playerWon;
         }
+
+        // Checks if a move is valid.
+        // The capitalization of the move does not matter as long as it
+        // is rock, paper, or scissors.
+        function moveIsValid(moveName) {
+            let moveNameInLowerCase = moveName.toLowerCase();
+            const ROCK_NAME_IN_LOWER_CASE = "rock";
+            const PAPER_NAME_IN_LOWER_CASE = "paper";
+            const SCISSORS_NAME_IN_LOWER_CASE = "scissors";
+            let moveIsValid = 
+                (moveNameInLowerCase === ROCK_NAME_IN_LOWER_CASE 
+                || moveNameInLowerCase === PAPER_NAME_IN_LOWER_CASE
+                || moveNameInLowerCase === SCISSORS_NAME_IN_LOWER_CASE);
+            return moveIsValid;
+        }
+
+        // Runs the game.
+        function game()
+        {
+            // PLAY THROUGH EACH OF THE ROUNDS.
+            const ROUND_COUNT = 5;
+            let playerScore = 0;
+            let computerScore = 0;
+            for(let round_number = 1; round_number <= ROUND_COUNT; round_number++) {
+                // PROMPT THE PLAYER UNTIL THEY MAKE A VALID MOVE CHOICE.
+                const PLAYER_MOVE_PROMPT = "What is your move?";
+                let playerMove = prompt(PLAYER_MOVE_PROMPT);
+                while (!moveIsValid(playerMove))
+                {
+                    const PLAYER_MOVE_REPROMPT = "That is not a valid option. What is your move?";
+                    playerMove = prompt(PLAYER_MOVE_REPROMPT);
+                }
+
+                // PLAY THE ROUND.
+                let playerWon = playRound(playerMove, getComputerChoice());
+
+                // UPDATE THE PLAYER AND COMPUTER SCORES.
+                if (playerWon) 
+                {
+                    playerScore++;
+                }
+                // Scores should not be incremented if there was a tie.
+                else if (playerWon != null)
+                {
+                    computerScore++;
+                }
+            }
+
+            // DECLARE THE RESULT OF THE GAME.
+            if (playerScore > computerScore)
+            {
+                const PLAYER_WIN_MESSAGE = `You won the match ${playerScore}-${computerScore}! Congratulations!`;
+                console.log(PLAYER_WIN_MESSAGE);
+            }
+            else if (playerScore < computerScore)
+            {
+                const COMPUTER_WIN_MESSAGE = `You lost the match ${playerScore}-${computerScore}... Better luck next time.`;
+                console.log(COMPUTER_WIN_MESSAGE);
+            }
+            else
+            {
+                const TIE_MESSAGE = `The match was a tie at ${playerScore}-${computerScore}!`;
+                console.log(TIE_MESSAGE);
+            }
+        }
+
+        // RUN THE GAME.
+        game();
     </script>
 </body>
 </html>
