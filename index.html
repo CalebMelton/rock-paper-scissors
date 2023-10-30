@@ -14,7 +14,8 @@
             // for simplicity and to emulate a human player's behavior.
             const OPTION_COUNT = 3;
             let computerChoiceIndex = Math.floor(Math.random() * OPTION_COUNT);  
-            switch(computerChoiceIndex) {
+            switch(computerChoiceIndex) 
+            {
                 case 0:
                     return "Rock";
                 case 1:
@@ -22,6 +23,68 @@
                 case 2:
                     return "Scissors"
             } 
+        }
+
+        // Plays a round of Rock Paper Scissors between the human player and a
+        // computer opponent, then returns true if the player won, false if the
+        // computer won, or null if there was a tie. It is assumed that the player
+        // and computer selections are rock, paper, or scissors, but they do not 
+        // need to have any specific capitalization.
+        function playRound(playerSelection, computerSelection) {
+            // DETERMINE THE RESULT OF THE ROUND.
+            // A lower-case comparison was chosen over an upper-case one arbitrarily.
+            let playerSelectionInLowerCase = playerSelection.toLowerCase();
+            let computerSelectionInLowerCase = computerSelection.toLowerCase();
+            const ROCK_NAME_IN_LOWER_CASE = "rock";
+            const PAPER_NAME_IN_LOWER_CASE = "paper";
+            const SCISSORS_NAME_IN_LOWER_CASE = "scissors";
+            let playerWon;
+            if(playerSelectionInLowerCase === computerSelectionInLowerCase) 
+            {
+                // NOTE THAT A TIE OCCURRED.
+                playerWon = null;
+            }
+            else if(playerSelectionInLowerCase === ROCK_NAME_IN_LOWER_CASE)
+            {
+                // NOTE WHETHER THE PLAYER WON OR LOST.
+                playerWon = (computerSelectionInLowerCase === SCISSORS_NAME_IN_LOWER_CASE) 
+                    ? true : false
+            }
+            else if (playerSelectionInLowerCase === PAPER_NAME_IN_LOWER_CASE)
+            {
+                // NOTE WHETHER THE PLAYER WON OR LOST.                
+                playerWon = (computerSelectionInLowerCase === ROCK_NAME_IN_LOWER_CASE) 
+                    ? true : false
+            }
+            else if (playerSelectionInLowerCase === SCISSORS_NAME_IN_LOWER_CASE)
+            {
+                // NOTE WHETHER THE PLAYER WON OR LOST.
+                playerWon = (computerSelectionInLowerCase === PAPER_NAME_IN_LOWER_CASE) 
+                    ? true : false                
+            }
+
+            // DECLARE THE RESULT OF THE ROUND.
+            if (playerWon === null)
+            {
+                // DECLARE A TIE.
+                const tieMessage = `It's a tie! Both players chose ${computerSelection}.`;
+                console.log(tieMessage);
+            }
+            else if (playerWon)
+            {
+                // DECLARE THE PLAYER WON.
+                const playerWinMessage = `You win! ${playerSelection} beats ${computerSelection}.`
+                console.log(playerWinMessage);
+            } 
+            else
+            {
+                // DECLARE THE PLAYER LOST.
+                const playerLossMessage = `You lost! ${computerSelection} beats ${playerSelection}.`
+                console.log(playerLossMessage);
+            }
+
+            // RETURN THE RESULT OF THE ROUND.
+            return playerWon;
         }
     </script>
 </body>
